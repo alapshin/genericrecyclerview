@@ -23,12 +23,12 @@ allprojects {
 
 ext {
     minSdkVersion = 15
-    compileSdkVersion = 22
+    compileSdkVersion = 23
     buildToolsVersion = '23.0.1'
 }
 
 ext.libraries = [
-        supportrecyclerview: 'com.android.support:recyclerview-v7:22.2.1',
+        supportrecyclerview: 'com.android.support:recyclerview-v7:23.1.0',
 ]
 
 task clean(type: Delete) {
