@@ -17,8 +17,9 @@ import java.util.List;
  */
 
 
-public abstract class GenericRecyclerAdapter<T extends GenericItem>
-        extends RecyclerView.Adapter<GenericViewHolder<T, ? extends View>> {
+public abstract class GenericRecyclerAdapter<T extends GenericItem, V extends View,
+        VH extends GenericViewHolder<T, V>>
+        extends RecyclerView.Adapter<VH> {
     public enum ChoiceMode {
         NONE,
         SINGLE,
@@ -36,7 +37,8 @@ public abstract class GenericRecyclerAdapter<T extends GenericItem>
     }
 
     @Override
-    public void onBindViewHolder(GenericViewHolder<T, ? extends View> holder, int position) {
+    @CallSuper
+    public void onBindViewHolder(VH holder, int position) {
         T item = items.get(position);
         if (item != null) {
             holder.bindItem(item);
