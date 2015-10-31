@@ -52,6 +52,11 @@ public abstract class GenericRecyclerAdapter<T extends GenericItem, V extends Vi
         return (0 <= position && position < items.size()) ? items.get(position) : null;
     }
 
+    public void removeItem(int position) {
+        items.remove(position);
+        notifyItemRemoved(position);
+    }
+
     public void setItems(List<T> items) {
         this.items = items;
         selectedItems.clear();
