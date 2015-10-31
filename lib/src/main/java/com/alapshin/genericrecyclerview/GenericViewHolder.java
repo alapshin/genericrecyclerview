@@ -5,6 +5,7 @@ package com.alapshin.genericrecyclerview;
  * @since 2015-06-11
  */
 
+import android.support.annotation.CallSuper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -12,7 +13,7 @@ import android.view.View;
  * ExtendedViewHolder parametrized with item type and custom view type
  * @param <T>
  */
-public abstract class GenericViewHolder<T extends GenericViewItem, V extends View>
+public abstract class GenericViewHolder<T extends GenericItem, V extends View>
         extends RecyclerView.ViewHolder
         implements View.OnClickListener {
     protected T item;
@@ -28,7 +29,7 @@ public abstract class GenericViewHolder<T extends GenericViewItem, V extends Vie
         return view;
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
+    void setOnItemClickListener(OnItemClickListener listener) {
         this.onItemClickListener = listener;
     }
 
@@ -36,6 +37,7 @@ public abstract class GenericViewHolder<T extends GenericViewItem, V extends Vie
      * Subclasses must implement this method to bind data to UI
      * @param item
      */
+    @CallSuper
     public void bindItem(T item) {
         this.item = item;
     };

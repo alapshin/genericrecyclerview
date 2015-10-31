@@ -1,5 +1,6 @@
 package com.alapshin.genericrecyclerview;
 
+import android.support.annotation.CallSuper;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseBooleanArray;
 import android.view.View;
@@ -16,7 +17,7 @@ import java.util.List;
  */
 
 
-public abstract class GenericRecyclerAdapter<T extends GenericViewItem>
+public abstract class GenericRecyclerAdapter<T extends GenericItem>
         extends RecyclerView.Adapter<GenericViewHolder<T, ? extends View>> {
     public enum ChoiceMode {
         NONE,
@@ -52,14 +53,6 @@ public abstract class GenericRecyclerAdapter<T extends GenericViewItem>
     public void setItems(List<T> items) {
         this.items = items;
         selectedItems.clear();
-        for (int i = 0; i < items.size(); ++i) {
-           if (items.get(i).selected()) {
-               if (choiceMode == ChoiceMode.MULTI
-                       || (choiceMode == ChoiceMode.SINGLE && selectedItems.size() == 0)) {
-                   selectedItems.put(i, true);
-               }
-           }
-        }
         notifyDataSetChanged();
     }
 
@@ -83,15 +76,14 @@ public abstract class GenericRecyclerAdapter<T extends GenericViewItem>
             }
             if (previousPosition != -1) {
                 T prevItem = getItem(previousPosition);
-//                prevItem.setSelection(false);
+                prevItem.setSelected(false);
                 notifyItemChanged(previousPosition);
             }
             selectedItems.clear();
         }
         T item = getItem(position);
-//        item.setSelection(true);
+        item.setSelected(true);
         selectedItems.put(position, true);
-
         notifyItemChanged(position);
     }
 
