@@ -23,7 +23,7 @@ public abstract class GenericRecyclerAdapter<T extends GenericItem, V extends Vi
     public enum ChoiceMode {
         NONE,
         SINGLE,
-        MULTI,
+        MULTIPLE,
     }
 
     protected List<T> items = new ArrayList<>();
@@ -67,31 +67,37 @@ public abstract class GenericRecyclerAdapter<T extends GenericItem, V extends Vi
         choiceMode = mode;
     }
 
-    public void selectItem(int position) {
+    public void setSelection(int position, boolean selected) {
+        if (position < 0 || position > items.size()) {
+            throw new IllegalArgumentException();
+        }
+
         if (choiceMode == ChoiceMode.NONE) {
             return;
         }
 
         if (choiceMode == ChoiceMode.SINGLE) {
-            int previousPosition = -1;
-
+            // Find previously selected item
+            int oldPosition = -1;
             if (selectedItems.size() == 1) {
-                previousPosition = selectedItems.keyAt(0);
+                oldPosition = selectedItems.keyAt(0);
             }
-            if (previousPosition == position) {
-                return;
+
+            if (oldPosition != position) {
+                selectedItems.clear();
+                if (oldPosition != -1) {
+                    getItem(oldPosition).setSelected(false);
+                }
+                notifyItemChanged(oldPosition);
             }
-            if (previousPosition != -1) {
-                T prevItem = getItem(previousPosition);
-                prevItem.setSelected(false);
-                notifyItemChanged(previousPosition);
-            }
-            selectedItems.clear();
         }
-        T item = getItem(position);
-        item.setSelected(true);
-        selectedItems.put(position, true);
-        notifyItemChanged(position);
+
+        boolean oldSelected = selectedItems.get(position, false);
+        if (oldSelected != selected) {
+            selectedItems.append(position, selected);
+            getItem(position) .setSelected(selected);
+            notifyItemChanged(position);
+        }
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
