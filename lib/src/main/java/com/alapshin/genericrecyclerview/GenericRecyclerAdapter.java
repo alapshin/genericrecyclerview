@@ -57,6 +57,10 @@ public abstract class GenericRecyclerAdapter<T extends GenericItem, V extends Vi
         notifyItemRemoved(position);
     }
 
+    public List<T> getItems() {
+        return this.items;
+    }
+
     public void setItems(List<T> items) {
         this.items = items;
         selectedItems.clear();
