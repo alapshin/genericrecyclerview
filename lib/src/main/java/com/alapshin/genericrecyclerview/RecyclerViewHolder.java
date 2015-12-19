@@ -1,30 +1,32 @@
 package com.alapshin.genericrecyclerview;
 
-/**
- * @author alapshin
- * @since 2015-06-11
- */
-
 import android.support.annotation.CallSuper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
- * ExtendedViewHolder parametrized with item type and custom view type
- * @param <T>
+ * ViewHolder parametrized with item type and view type
+ *
+ * @param <T> data item type
+ * @param <V> item view type
+ *
+ * @author Andrei Lapshin
  */
-public abstract class GenericViewHolder<T extends GenericItem, V extends View>
+public abstract class RecyclerViewHolder<T extends RecyclerItem, V extends View>
         extends RecyclerView.ViewHolder
         implements View.OnClickListener {
     protected T item;
     protected V view;
     protected OnItemClickListener onItemClickListener;
 
-    public GenericViewHolder(V itemView) {
+    public RecyclerViewHolder(V itemView) {
         super(itemView);
         this.view = itemView;
     }
 
+    /**
+     * @return {@see android.view.View} attached to ViewHolder
+     */
     public V getItemView() {
         return view;
     }
@@ -35,7 +37,7 @@ public abstract class GenericViewHolder<T extends GenericItem, V extends View>
 
     /**
      * Subclasses must implement this method to bind data to UI
-     * @param item
+     * @param item data item
      */
     @CallSuper
     public void bindItem(T item) {

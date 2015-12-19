@@ -3,7 +3,7 @@ package com.alapshin.genericrecyclerview;
 import android.support.annotation.CallSuper;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseBooleanArray;
-import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,21 +15,19 @@ import java.util.List;
  * @author alapshin
  * @since 2015-06-11
  */
-
-
-public abstract class GenericRecyclerAdapter<T extends GenericItem, V extends View,
-        VH extends GenericViewHolder<T, V>>
-        extends RecyclerView.Adapter<VH> {
+public class RecyclerAdapter<T extends RecyclerItem>
+        extends RecyclerView.Adapter<RecyclerViewHolder> {
     public enum ChoiceMode {
         NONE,
         SINGLE,
-        MULTIPLE,
     }
 
     protected List<T> items = new ArrayList<>();
     protected ChoiceMode choiceMode = ChoiceMode.NONE;
     protected SparseBooleanArray selectedItems = new SparseBooleanArray();
     protected OnItemClickListener onItemClickListener;
+
+    protected RecyclerDelegateManager<T> delegateManager = new RecyclerDelegateManager<>();
 
     @Override
     public int getItemCount() {
@@ -38,23 +36,33 @@ public abstract class GenericRecyclerAdapter<T extends GenericItem, V extends Vi
 
     @Override
     @CallSuper
-    public void onBindViewHolder(VH holder, int position) {
+    public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return delegateManager.onCreateViewHolder(parent, viewType);
+    }
+
+    @Override
+    @CallSuper
+    public void onBindViewHolder(RecyclerViewHolder holder, int position) {
         T item = items.get(position);
-        if (item != null) {
-            holder.bindItem(item);
-        }
+        delegateManager.onBindViewHolder(holder, item);
         if (onItemClickListener != null) {
             holder.setOnItemClickListener(onItemClickListener);
         }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        T item = items.get(position);
+        return delegateManager.getItemViewType(item);
     }
 
     public T getItem(int position) {
         return (0 <= position && position < items.size()) ? items.get(position) : null;
     }
 
-    public void removeItem(int position) {
-        items.remove(position);
-        notifyItemRemoved(position);
+    public void setItem(int position, T item) {
+        items.set(position, item);
+        notifyItemChanged(position);
     }
 
     public List<T> getItems() {
@@ -65,6 +73,11 @@ public abstract class GenericRecyclerAdapter<T extends GenericItem, V extends Vi
         this.items = items;
         selectedItems.clear();
         notifyDataSetChanged();
+    }
+
+    public void removeItem(int position) {
+        items.remove(position);
+        notifyItemRemoved(position);
     }
 
     public void setChoiceMode(ChoiceMode mode) {
