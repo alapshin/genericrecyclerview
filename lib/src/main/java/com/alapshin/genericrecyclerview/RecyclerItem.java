@@ -1,7 +1,7 @@
 package com.alapshin.genericrecyclerview;
 
 /**
- * Base class for adapter items
+ * Base class for adapter data items
  *
  * @author Andrei Lapshin
  */

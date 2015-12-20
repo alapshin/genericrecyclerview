@@ -25,7 +25,8 @@ public abstract class RecyclerViewHolder<T extends RecyclerItem, V extends View>
     }
 
     /**
-     * @return {@see android.view.View} attached to ViewHolder
+     * Returns item view attached to view holder
+     * @return {@link android.view.View} attached to view holder
      */
     public V getItemView() {
         return view;
@@ -36,7 +37,7 @@ public abstract class RecyclerViewHolder<T extends RecyclerItem, V extends View>
     }
 
     /**
-     * Subclasses must implement this method to bind data to UI
+     * Binds data item to item view
      * @param item data item
      */
     @CallSuper
