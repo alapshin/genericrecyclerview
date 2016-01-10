@@ -30,12 +30,12 @@ public class SampleAdapter extends RecyclerAdapter<SampleItem> {
 
         @Override
         public boolean isForViewType(@NonNull SampleItem item) {
-            return item.type() == 0;
+            return item.type() == getItemViewType();
         }
 
         @Override
         public void onBindViewHolder(@NonNull SampleHolderRed holder, SampleItem item) {
-            holder.getItemView().setText(item.text());
+            holder.bindItem(item);
         }
 
         @NonNull
