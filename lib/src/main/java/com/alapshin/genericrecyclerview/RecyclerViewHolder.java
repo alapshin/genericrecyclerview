@@ -17,7 +17,7 @@ public abstract class RecyclerViewHolder<T extends RecyclerItem, V extends View>
         implements View.OnClickListener {
     protected T item;
     protected V view;
-    protected OnItemClickListener onItemClickListener;
+    protected OnItemClickListener<T> onItemClickListener;
 
     public RecyclerViewHolder(V itemView) {
         super(itemView);
@@ -48,7 +48,7 @@ public abstract class RecyclerViewHolder<T extends RecyclerItem, V extends View>
     @Override
     public void onClick(View view) {
         if (onItemClickListener != null) {
-            onItemClickListener.onItemClick(getAdapterPosition());
+            onItemClickListener.onItemClick(getAdapterPosition(), item);
         }
     }
 }

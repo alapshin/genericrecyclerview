@@ -25,7 +25,7 @@ public class RecyclerAdapter<T extends RecyclerItem>
     protected List<T> items = new ArrayList<>();
     protected ChoiceMode choiceMode = ChoiceMode.NONE;
     protected SparseBooleanArray selectedItems = new SparseBooleanArray();
-    protected OnItemClickListener onItemClickListener;
+    protected OnItemClickListener<T> onItemClickListener;
 
     protected RecyclerDelegateManager<T> delegateManager = new RecyclerDelegateManager<>();
 
