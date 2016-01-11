@@ -6,11 +6,12 @@ archivesBaseName = 'genericrecyclerview'
 version = '0.1.1'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion;
-    buildToolsVersion rootProject.ext.buildToolsVersion;
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.compileSdk
         versionCode 1
         versionName version
     }
