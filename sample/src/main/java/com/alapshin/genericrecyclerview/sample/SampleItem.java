@@ -6,7 +6,7 @@ import com.alapshin.genericrecyclerview.RecyclerItem;
  * @author alapshin
  * @since 2015-12-18
  */
-public class SampleItem extends RecyclerItem {
+public class SampleItem implements RecyclerItem {
     private int type;
     private String text;
 
@@ -25,5 +25,14 @@ public class SampleItem extends RecyclerItem {
     public SampleItem(int type, String text) {
         this.type = type;
         this.text = text;
+    }
+
+    @Override
+    public boolean selected() {
+        return false;
+    }
+
+    @Override
+    public void setSelected(boolean selected) {
     }
 }

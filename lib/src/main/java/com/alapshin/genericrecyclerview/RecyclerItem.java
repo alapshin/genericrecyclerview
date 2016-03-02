@@ -5,28 +5,21 @@ package com.alapshin.genericrecyclerview;
  *
  * @author Andrei Lapshin
  */
-public abstract class RecyclerItem {
-    private boolean selected_;
-
+public interface RecyclerItem {
     /**
      * Unique item id
      * {@link android.support.v7.widget.RecyclerView.Adapter#getItemId(int)}
      * @return integer representing item id
      */
-    public abstract int id();
+    int id();
 
     /**
      * Item view type
      * {@link android.support.v7.widget.RecyclerView.Adapter#getItemViewType(int)}
      * @return integer representing item view type
      */
-    public abstract int type();
+    int type();
 
-    public boolean selected() {
-        return selected_;
-    }
-
-    public void setSelected(boolean selected) {
-        this.selected_ = selected;
-    }
+    boolean selected();
+    void setSelected(boolean selected);
 }
