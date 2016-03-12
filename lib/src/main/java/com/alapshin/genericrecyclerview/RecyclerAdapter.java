@@ -57,6 +57,17 @@ public class RecyclerAdapter<T extends RecyclerItem>
     }
 
     /**
+     * Add items to adapter.
+     * @param items new items.
+     */
+    public void addItems(List<T> items) {
+        int currentSize = this.items.size();
+        int sizeToInsert = items.size();
+        this.items.addAll(items);
+        notifyItemRangeInserted(currentSize, sizeToInsert);
+    }
+
+    /**
      * Get data item at position
      * @param position data item position in the adapter
      * @return T
