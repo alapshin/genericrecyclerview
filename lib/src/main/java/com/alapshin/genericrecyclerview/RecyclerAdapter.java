@@ -110,6 +110,7 @@ public class RecyclerAdapter<T extends RecyclerItem>
      */
     public void removeItem(int position) {
         items.remove(position);
+        selectedItems.delete(position);
         notifyItemRemoved(position);
     }
 
