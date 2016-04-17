@@ -151,7 +151,7 @@ public class RecyclerAdapter<T extends RecyclerItem>
         }
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
+    public void setOnItemClickListener(OnItemClickListener<T> listener) {
         this.onItemClickListener = listener;
     }
 }

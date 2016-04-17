@@ -32,7 +32,7 @@ public abstract class RecyclerViewHolder<T extends RecyclerItem, V extends View>
         return view;
     }
 
-    void setOnItemClickListener(OnItemClickListener listener) {
+    void setOnItemClickListener(OnItemClickListener<T> listener) {
         this.onItemClickListener = listener;
     }
 
