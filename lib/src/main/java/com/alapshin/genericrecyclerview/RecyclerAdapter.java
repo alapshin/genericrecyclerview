@@ -20,6 +20,7 @@ public class RecyclerAdapter<T extends RecyclerItem>
     public enum ChoiceMode {
         NONE,
         SINGLE,
+        MULTI,
     }
 
     protected List<T> items = new ArrayList<>();
