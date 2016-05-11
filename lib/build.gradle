@@ -3,7 +3,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 
 group = 'com.github.alapshin'
 archivesBaseName = 'genericrecyclerview'
-version = '0.2.4'
+version = '0.2.5'
 
 android {
     compileSdkVersion versions.compileSdk
