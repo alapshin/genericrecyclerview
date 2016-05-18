@@ -18,20 +18,18 @@ package com.alapshin.genericrecyclerview;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.view.ViewGroup;
 
 /**
  * This delegate provide method to hook in this delegate to {@link RecyclerView.Adapter} lifecycle.
- * This "hook in" mechanism is provided by {@link RecyclerDelegateManager} and that is the
+ * This "hook in" mechanism is provided by {@link ViewHolderDelegateManager} and that is the
  * component you have to use.
  *
  * @param <T> The type of the data source
  * @author Hannes Dorfmann
  * @author Andrei Lapshin
  */
-public interface RecyclerDelegate<T extends RecyclerItem, V extends View,
-        VH extends RecyclerViewHolder<T, V>> {
+public interface ViewHolderDelegate<T, VH extends RecyclerView.ViewHolder> {
     /**
      * Get the view type integer. Must be unique within every Adapter
      *
@@ -40,7 +38,7 @@ public interface RecyclerDelegate<T extends RecyclerItem, V extends View,
     int getItemViewType();
 
     /**
-     * Called to determine whether this RecyclerDelegate is the responsible for the given data
+     * Called to determine whether this ViewHolderDelegate is the responsible for the given data
      * element.
      *
      * @param item The item from data source of the Adapter
@@ -52,15 +50,15 @@ public interface RecyclerDelegate<T extends RecyclerItem, V extends View,
      * Creates the  {@link RecyclerView.ViewHolder} for the given data source item
      *
      * @param parent The ViewGroup parent of the given datasource
-     * @return The new instantiated {@link RecyclerViewHolder}
+     * @return The new instantiated {@link DefaultViewHolder}
      */
     @NonNull
     VH onCreateViewHolder(ViewGroup parent);
 
     /**
-     * Called to bind the {@link RecyclerViewHolder} to the item of the data source set
+     * Called to bind the {@link DefaultViewHolder} to the item of the data source set
      *
-     * @param holder The {@link RecyclerViewHolder} to bind
+     * @param holder The {@link DefaultViewHolder} to bind
      * @param item The item from the datasource
      */
     void onBindViewHolder(@NonNull VH holder, T item);
