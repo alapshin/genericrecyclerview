@@ -15,13 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SampleActivity extends AppCompatActivity {
-    public static final String TAG = SampleActivity.class.getSimpleName();
-
     RecyclerView recyclerView;
     SampleAdapter recyclerAdapter;
     SelectionManager selectionManager = new DefaultSelectionManager();
     ItemProvider<SampleItem> itemProvider = new DefaultItemProvider<>();;
-    ViewHolderDelegateManager<SampleItem, SampleAdapter.SampleHolder> delegateManager = new ViewHolderDelegateManager<>();
+    ViewHolderDelegateManager<SampleItem, SampleAdapter.SampleHolder> delegateManager =
+            new ViewHolderDelegateManager<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
