@@ -37,58 +37,80 @@ import android.view.ViewGroup;
  * @author Hannes Dorfmann
  * @author Andrei Lapshin
  */
-public class ViewHolderDelegateManager<T> {
+public class ViewHolderDelegateManager<T, VH extends RecyclerView.ViewHolder> {
+    static final int FALLBACK_DELEGATE_VIEW_TYPE = Integer.MAX_VALUE - 1;
 
-    private ViewHolderDelegate fallbackDelegate;
+    private ViewHolderDelegate<T, ? extends VH> fallbackDelegate;
     /**
      * Map for ViewType to ViewHolderDelegate
      */
-    SparseArrayCompat<ViewHolderDelegate> delegates = new SparseArrayCompat<>();
-
-    /**
-     * Adds an {@link ViewHolderDelegate}. Internally calls {@link #addDelegate(ViewHolderDelegate,
-     * boolean)} with false as parameter.
-     *
-     * @param delegate the delegate to add
-     * @return self
-     * @throws IllegalArgumentException if an {@link ViewHolderDelegate} is already added (registered)
-     * with the same ViewType {@link ViewHolderDelegate#getItemViewType()}.
-     * @see #addDelegate(ViewHolderDelegate, boolean)
-     */
-    public ViewHolderDelegateManager<T> addDelegate(@NonNull ViewHolderDelegate delegate) {
-        return addDelegate(delegate, false);
-    }
+    SparseArrayCompat<ViewHolderDelegate<T, ? extends VH>> delegates = new SparseArrayCompat<>();
 
     /**
      * Adds an {@link ViewHolderDelegate}.
+     * <b>This method automatically assign internally the view type integer by using the next
+     * unused</b>
      *
-     * @param delegate The delegate to add
-     * @param allowReplacingDelegate if true, you allow to replacing the given delegate any previous
-     * delegate for the same view type. if false, you disallow and a {@link IllegalArgumentException}
-     * will be thrown if you try to replace an already registered {@link ViewHolderDelegate} for the
-     * same
-     * view type.
-     * @throws IllegalArgumentException if <b>allowReplacingDelegate</b>  is false and an {@link
-     * ViewHolderDelegate} is already added (registered)
-     * with the same ViewType {@link ViewHolderDelegate#getItemViewType()}.
-     * @throws IllegalArgumentException if the {@link ViewHolderDelegate#getItemViewType()} is the same
-     * as fallback RecyclerDelegate one.
-     * @see #setFallbackDelegate(ViewHolderDelegate)
+     * Internally calls {@link #addDelegate(ViewHolderDelegate, int, boolean)} with
+     * allowReplacingDelegate = false as parameter.
+     *
+     * @param delegate the delegate to add
+     * @return self
+     * @throws NullPointerException if passed delegate is null
+     * @see #addDelegate(ViewHolderDelegate, int)
+     * @see #addDelegate(ViewHolderDelegate, int, boolean)
      */
-    public ViewHolderDelegateManager<T> addDelegate(@NonNull ViewHolderDelegate delegate,
-                                                        boolean allowReplacingDelegate) {
-
-        int viewType = delegate.getItemViewType();
-
-        if (fallbackDelegate != null && fallbackDelegate.getItemViewType() == viewType) {
-            throw new IllegalArgumentException(
-                    "Conflict: the passed ViewHolderDelegate has the same ViewType integer (value = " + viewType
-                            + ") as the fallback ViewHolderDelegate");
+    public ViewHolderDelegateManager<T, VH> addDelegate(@NonNull ViewHolderDelegate<T, ? extends VH> delegate) {
+        // algorithm could be improved since there could be holes,
+        // but it's very unlikely that we reach Integer.MAX_VALUE and run out of unused indexes
+        int viewType = delegates.size();
+        while (delegates.get(viewType) != null) {
+            viewType++;
+            if (viewType == FALLBACK_DELEGATE_VIEW_TYPE) {
+                throw new IllegalArgumentException(
+                        "Oops, we are very close to Integer.MAX_VALUE. It seems that there are no "
+                        + "more free and unused view type integers left to add another AdapterDelegate.");
+            }
         }
+        return addDelegate(delegate, viewType, false);
+    }
+
+    /**
+     * Adds an {@link ViewHolderDelegate} with the specified view type.
+     *
+     * Internally calls {@link #addDelegate(ViewHolderDelegate, int, boolean)} with
+     * allowReplacingDelegate = false as parameter.
+     *
+     * @param viewType the view type integer if you want to assign manually the view type. Otherwise
+     * use {@link #addDelegate(ViewHolderDelegate)} where a view type will be assigned automatically.
+     * @param delegate the delegate to add
+     * @return self
+     * @throws NullPointerException if passed delegate is null
+     * @see #addDelegate(ViewHolderDelegate)
+     * @see #addDelegate(ViewHolderDelegate, int, boolean)
+     */
+    public ViewHolderDelegateManager<T, VH> addDelegate(@NonNull ViewHolderDelegate<T, ? extends VH> delegate, int viewType) {
+        return addDelegate(delegate, viewType, false);
+    }
+
+    public ViewHolderDelegateManager<T, VH> addDelegate(@NonNull ViewHolderDelegate<T, ? extends VH> delegate,
+                                                    int viewType, boolean allowReplacingDelegate) {
+        if (delegate == null) {
+            throw new NullPointerException("AdapterDelegate is null!");
+        }
+
+        if (viewType == FALLBACK_DELEGATE_VIEW_TYPE) {
+            throw new IllegalArgumentException("The view type = "
+                    + FALLBACK_DELEGATE_VIEW_TYPE
+                    + " is reserved for fallback adapter delegate (see setFallbackDelegate() ). Please use another view type.");
+        }
+
         if (!allowReplacingDelegate && delegates.get(viewType) != null) {
             throw new IllegalArgumentException(
-                    "An ViewHolderDelegate is already registered for the viewType = " + viewType
-                            + ". Already registered ViewHolderDelegate is " + delegates.get(viewType));
+                    "An AdapterDelegate is already registered for the viewType = "
+                            + viewType
+                            + ". Already registered AdapterDelegate is "
+                            + delegates.get(viewType));
         }
 
         delegates.put(viewType, delegate);
@@ -104,22 +126,27 @@ public class ViewHolderDelegateManager<T> {
      * @param delegate The delegate to remove
      * @return self
      */
-    public ViewHolderDelegateManager<T> removeDelegate(@NonNull ViewHolderDelegate delegate) {
+    public ViewHolderDelegateManager<T, VH> removeDelegate(@NonNull ViewHolderDelegate<T, ? extends VH> delegate) {
 
-        ViewHolderDelegate queried = delegates.get(delegate.getItemViewType());
-        if (queried != null && queried == delegate) {
-            delegates.remove(delegate.getItemViewType());
+        if (delegate == null) {
+            throw new NullPointerException("AdapterDelegate is null");
+        }
+
+        int indexToRemove = delegates.indexOfValue(delegate);
+
+        if (indexToRemove >= 0) {
+            delegates.removeAt(indexToRemove);
         }
         return this;
     }
 
     /**
-     * Removes the ViewHolderDelegate for the given view types.
+     * Removes the adapterDelegate for the given view types.
      *
      * @param viewType The Viewtype
      * @return self
      */
-    public ViewHolderDelegateManager<T> removeDelegate(int viewType) {
+    public ViewHolderDelegateManager<T, VH> removeDelegate(int viewType) {
         delegates.remove(viewType);
         return this;
     }
@@ -139,14 +166,14 @@ public class ViewHolderDelegateManager<T> {
 
         int delegatesCount = delegates.size();
         for (int i = 0; i < delegatesCount; i++) {
-            ViewHolderDelegate delegate = delegates.valueAt(i);
+            ViewHolderDelegate<T, ? extends VH> delegate = delegates.valueAt(i);
             if (delegate.isForViewType(item)) {
-                return delegate.getItemViewType();
+                return delegates.keyAt(i);
             }
         }
 
         if (fallbackDelegate != null) {
-            return fallbackDelegate.getItemViewType();
+            return FALLBACK_DELEGATE_VIEW_TYPE;
         }
 
         throw new IllegalArgumentException(
@@ -159,12 +186,11 @@ public class ViewHolderDelegateManager<T> {
      * @param parent the parent
      * @param viewType the view type
      * @return The new created ViewHolder
-     * @throws NullPointerException if no ViewHolderDelegate has been registered for ViewHolders
+     * @throws NullPointerException if no AdapterDelegate has been registered for ViewHolders
      * viewType
      */
-    @NonNull
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ViewHolderDelegate delegate = delegates.get(viewType);
+    @NonNull public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        ViewHolderDelegate<T, ? extends VH> delegate = delegates.get(viewType);
         if (delegate == null) {
             if (fallbackDelegate == null) {
                 throw new NullPointerException("No ViewHolderDelegate added for ViewType " + viewType);
@@ -173,30 +199,38 @@ public class ViewHolderDelegateManager<T> {
             }
         }
 
-        return delegate.onCreateViewHolder(parent);
+        VH vh = delegate.onCreateViewHolder(parent);
+        if (vh == null) {
+            throw new NullPointerException("ViewHolder returned from ViewHolderDelegate "
+                    + delegate
+                    + " for ViewType ="
+                    + viewType
+                    + " is null!");
+        }
+        return vh;
     }
 
     /**
      * Must be called from{@link RecyclerView.Adapter#onBindViewHolder(RecyclerView.ViewHolder, int)}
      *
+     * @param item item
      * @param viewHolder the ViewHolder to bind
-     * @param item the item from the data source
-     * @throws NullPointerException if no ViewHolderDelegate has been registered for ViewHolders
+     * @throws NullPointerException if no AdapterDelegate has been registered for ViewHolders
      * viewType
      */
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, T item) {
+    public void onBindViewHolder(@NonNull VH viewHolder, @NonNull T item) {
 
-        ViewHolderDelegate delegate = delegates.get(viewHolder.getItemViewType());
+        ViewHolderDelegate<T, ? extends VH> delegate = delegates.get(viewHolder.getItemViewType());
         if (delegate == null) {
             if (fallbackDelegate == null) {
                 throw new NullPointerException(
-                        "No ViewHolderDelegate added for ViewType " + viewHolder.getItemViewType());
+                        "No AdapterDelegate added for ViewType " + viewHolder.getItemViewType());
             } else {
                 delegate = fallbackDelegate;
             }
         }
 
-        delegate.onBindViewHolder(viewHolder, item);
+        _helper(delegate, viewHolder, item);
     }
 
     /**
@@ -204,30 +238,22 @@ public class ViewHolderDelegateManager<T> {
      * can handle a certain view type.
      *
      * @param fallbackDelegate The {@link ViewHolderDelegate} that should be used as fallback if no
-     * other
-     * ViewHolderDelegate has handled a certain view type. <code>null</code> you can set this to null if
-     * you want to remove a previously set fallback ViewHolderDelegate
-     * @throws IllegalArgumentException If passed Fallback
+     * other AdapterDelegate has handled a certain view type. <code>null</code> you can set this to
+     * null if
+     * you want to remove a previously set fallback AdapterDelegate
      */
-    public ViewHolderDelegateManager<T> setFallbackDelegate(
-            @Nullable ViewHolderDelegate fallbackDelegate) {
-
-        if (fallbackDelegate != null) {
-            // Setting a new fallback delegate
-            int delegatesCount = delegates.size();
-            int fallbackViewType = fallbackDelegate.getItemViewType();
-            for (int i = 0; i < delegatesCount; i++) {
-                ViewHolderDelegate delegate = delegates.valueAt(i);
-                if (delegate.getItemViewType() == fallbackViewType) {
-                    throw new IllegalArgumentException(
-                            "Conflict: The given fallback - delegate has the same ViewType integer (value = "
-                                    + fallbackViewType + ")  as an already assigned ViewHolderDelegate "
-                                    + delegate.getClass().getName());
-                }
-            }
-        }
+    public ViewHolderDelegateManager<T, VH> setFallbackDelegate(
+            @Nullable ViewHolderDelegate<T, ? extends VH> fallbackDelegate) {
         this.fallbackDelegate = fallbackDelegate;
-
         return this;
+    }
+
+    /**
+     * Helper method for recovering type argument from wildcard.
+     * {@see http://www.angelikalanger.com/GenericsFAQ/FAQSections/ProgrammingIdioms.html#FAQ208}
+     */
+    private static <T, VH extends RecyclerView.ViewHolder> void _helper(
+            ViewHolderDelegate<T, VH> reference, Object arg, T item) {
+        reference.onBindViewHolder(reference.getViewHolderType().cast(arg), item);
     }
 }
