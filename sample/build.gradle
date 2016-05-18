@@ -20,6 +20,6 @@ android {
 }
 
 dependencies {
-    compile project(':lib')
+    compile project(':library')
     compile libraries.supportappcompat
 }
