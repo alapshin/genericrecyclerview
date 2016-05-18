@@ -9,11 +9,17 @@ public class DefaultItemProvider<T> implements ItemProvider<T> {
     private List<T> items = new ArrayList<>();
     private RecyclerView.Adapter adapter;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getItemCount() {
         return items.size();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addItem(T item) {
         items.add(item);
@@ -22,6 +28,9 @@ public class DefaultItemProvider<T> implements ItemProvider<T> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addItems(List<T> items) {
         int size = getItemCount();
@@ -32,16 +41,25 @@ public class DefaultItemProvider<T> implements ItemProvider<T> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T getItem(int position) {
         return items.get(position);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<T> getItems() {
         return items;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setItem(int position, T item) {
         items.set(position, item);
@@ -50,6 +68,9 @@ public class DefaultItemProvider<T> implements ItemProvider<T> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setItems(List<T> items) {
         this.items = items;
@@ -58,6 +79,9 @@ public class DefaultItemProvider<T> implements ItemProvider<T> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void moveItem(int fromPosition, int toPosition) {
         items.add(toPosition, items.remove(fromPosition));
@@ -66,6 +90,9 @@ public class DefaultItemProvider<T> implements ItemProvider<T> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeItem(int position) {
         items.remove(position);
@@ -74,6 +101,9 @@ public class DefaultItemProvider<T> implements ItemProvider<T> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeItems() {
         int size = getItemCount();

@@ -4,10 +4,15 @@ import android.support.v7.widget.RecyclerView;
 
 import java.util.List;
 
+/**
+ * This interface provides methods to store and receive adapter items.
+ *
+ * @param <T> item type
+ */
 public interface ItemProvider<T> {
     /**
-     * Get item count in provider
-     * @return item count
+     * Get number of items in provider
+     * @return number of items in provider
      */
     int getItemCount();
 

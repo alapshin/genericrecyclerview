@@ -1,19 +1,3 @@
-/*
- * Copyright (c) 2015 Hannes Dorfmann.
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
-
 package com.alapshin.genericrecyclerview;
 
 import android.support.annotation.NonNull;
@@ -31,15 +15,15 @@ import android.view.ViewGroup;
  * </p>
  *
  * <p>
- * Next you have to add this ViewHolderDelegateManager to the {@link RecyclerView.Adapter} by calling
- * corresponding methods:
+ * Next you have to add this ViewHolderDelegateManager to the {@link RecyclerView.Adapter} by
+ * calling corresponding methods:
  * <ul>
  * <li> {@link #getItemViewType(T)}: Must be called from {@link
  * RecyclerView.Adapter#getItemViewType(int)}</li>
  * <li> {@link #onCreateViewHolder(ViewGroup, int)}: Must be called from {@link
  * RecyclerView.Adapter#onCreateViewHolder(ViewGroup, int)}</li>
- * <li> {@link #onBindViewHolder(android.support.v7.widget.RecyclerView.ViewHolder, T)}: Must be called from {@link
- * RecyclerView.Adapter#onBindViewHolder(RecyclerView.ViewHolder, int)}</li>
+ * <li> {@link #onBindViewHolder(android.support.v7.widget.RecyclerView.ViewHolder, T)}: Must be
+ * called from {@link RecyclerView.Adapter#onBindViewHolder(RecyclerView.ViewHolder, int)}</li>
  * </ul>
  *
  * You can also set a fallback {@link ViewHolderDelegate} by using {@link
@@ -48,7 +32,8 @@ import android.view.ViewGroup;
  * thrown if no {@link ViewHolderDelegate} is responsible to handle a certain view type
  * </p>
  *
- * @param <T> The type of items in the datasource of the adapter
+ * @param <T> item type
+ *
  * @author Hannes Dorfmann
  * @author Andrei Lapshin
  */

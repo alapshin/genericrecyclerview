@@ -7,8 +7,6 @@ import android.view.View;
  *
  * @param <T> item type
  * @param <V> view type
- *
- * @author Andrei Lapshin
  */
 public interface BindableViewHolder<T, V extends View> {
     /**
