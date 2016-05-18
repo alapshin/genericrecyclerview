@@ -7,11 +7,12 @@ import com.alapshin.genericrecyclerview.RecyclerItem;
  * @since 2015-12-18
  */
 public class SampleItem implements RecyclerItem {
+    private int id;
     private int type;
     private String text;
 
     public int id() {
-        return -1;
+        return id;
     }
 
     public int type() {
@@ -22,17 +23,9 @@ public class SampleItem implements RecyclerItem {
         return text;
     }
 
-    public SampleItem(int type, String text) {
+    public SampleItem(int id, int type, String text) {
+        this.id = id;
         this.type = type;
         this.text = text;
-    }
-
-    @Override
-    public boolean selected() {
-        return false;
-    }
-
-    @Override
-    public void setSelected(boolean selected) {
     }
 }
