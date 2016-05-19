@@ -3,18 +3,22 @@ android:
     components:
         - android-23
         - tools
-        - build-tools-23.0.2
+        - build-tools-23.0.3
         - platform-tools
         - extra-google-m2repository
         - extra-android-m2repository
 
 jdk:
-  - oraclejdk8
+    - oraclejdk8
 
 sudo: false
 
 script: ./gradlew clean build
 
 cache:
-  directories:
-    - $HOME/.gradle
+    directories:
+        - $HOME/.m2
+        - $HOME/.gradle
+
+notifications:
+    email: true
