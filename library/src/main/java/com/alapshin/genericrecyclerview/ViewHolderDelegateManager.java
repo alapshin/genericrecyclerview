@@ -231,7 +231,7 @@ public class ViewHolderDelegateManager<T extends Item, VH extends RecyclerView.V
             }
         }
 
-        _helper(delegate, viewHolder, item);
+        onBindViewHolderImpl(delegate, viewHolder, item);
     }
 
     /**
@@ -250,10 +250,12 @@ public class ViewHolderDelegateManager<T extends Item, VH extends RecyclerView.V
     }
 
     /**
-     * Helper method for recovering type argument from wildcard.
+     * Helper method to call * {@link ViewHolderDelegate#onBindViewHolder(RecyclerView.ViewHolder, Item)}
+     * with view holder casted to right type
+     *
      * {@see http://www.angelikalanger.com/GenericsFAQ/FAQSections/ProgrammingIdioms.html#FAQ208}
      */
-    private static <T extends Item, VH extends RecyclerView.ViewHolder> void _helper(
+    private static <T extends Item, VH extends RecyclerView.ViewHolder> void onBindViewHolderImpl(
             ViewHolderDelegate<T, VH> reference, Object arg, T item) {
         reference.onBindViewHolder(reference.getViewHolderType().cast(arg), item);
     }
