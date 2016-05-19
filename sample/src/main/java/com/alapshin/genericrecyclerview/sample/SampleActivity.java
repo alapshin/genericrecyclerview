@@ -18,7 +18,7 @@ public class SampleActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     SampleAdapter recyclerAdapter;
     SelectionManager selectionManager = new DefaultSelectionManager();
-    ItemProvider<SampleItem> itemProvider = new DefaultItemProvider<>();;
+    ItemProvider<SampleItem> itemProvider = new DefaultItemProvider<>();
     ViewHolderDelegateManager<SampleItem, SampleAdapter.SampleHolder> delegateManager =
             new ViewHolderDelegateManager<>();
 

@@ -43,5 +43,5 @@ public class DefaultViewHolder<T extends Item, V extends View>
     @CallSuper
     public void onBindViewHolder(T item) {
         this.item = item;
-    };
+    }
 }
