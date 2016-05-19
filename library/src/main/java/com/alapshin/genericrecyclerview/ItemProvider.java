@@ -17,6 +17,13 @@ public interface ItemProvider<T> {
     int getItemCount();
 
     /**
+     * Get id of item at position
+     * @param position item position
+     * @return item id
+     */
+    int getItemId(int position);
+
+    /**
      * Add item to the provider
      * @param item item
      */

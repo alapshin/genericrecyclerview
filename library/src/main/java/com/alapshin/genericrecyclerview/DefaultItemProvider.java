@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DefaultItemProvider<T> implements ItemProvider<T> {
+public class DefaultItemProvider<T extends RecyclerItem> implements ItemProvider<T> {
     private List<T> items = new ArrayList<>();
     private RecyclerView.Adapter adapter;
 
@@ -15,6 +15,11 @@ public class DefaultItemProvider<T> implements ItemProvider<T> {
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    @Override
+    public int getItemId(int position) {
+        return items.get(position).id();
     }
 
     /**
