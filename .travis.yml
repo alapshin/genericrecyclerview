@@ -9,16 +9,16 @@ android:
         - extra-android-m2repository
 
 jdk:
-  - oraclejdk8
+    - oraclejdk8
 
 sudo: false
 
 script: ./gradlew clean build
 
 cache:
-  directories:
-    - $HOME/.m2
-    - $HOME/.gradle
+    directories:
+        - $HOME/.m2
+        - $HOME/.gradle
 
 notifications:
-  email: true
+    email: true
