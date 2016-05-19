@@ -8,7 +8,7 @@ import android.view.View;
  * @param <T> item type
  * @param <V> view type
  */
-public interface BindableViewHolder<T, V extends View> {
+public interface BindableViewHolder<T extends Item, V extends View> {
     /**
      * Returns item attached to view holder
      * @return {@link View} attached to view holder

@@ -11,7 +11,7 @@ import android.view.ViewGroup;
  * @param <T> item type
  * @author Andrei Lapshin
  */
-public interface ViewHolderDelegate<T, VH extends RecyclerView.ViewHolder> {
+public interface ViewHolderDelegate<T extends Item, VH extends RecyclerView.ViewHolder> {
     /**
      * Called to determine whether this ViewHolderDelegate is the responsible for the given item.
      *

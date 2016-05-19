@@ -37,7 +37,7 @@ import android.view.ViewGroup;
  * @author Hannes Dorfmann
  * @author Andrei Lapshin
  */
-public class ViewHolderDelegateManager<T, VH extends RecyclerView.ViewHolder> {
+public class ViewHolderDelegateManager<T extends Item, VH extends RecyclerView.ViewHolder> {
     static final int FALLBACK_DELEGATE_VIEW_TYPE = Integer.MAX_VALUE - 1;
 
     private ViewHolderDelegate<T, ? extends VH> fallbackDelegate;
@@ -253,7 +253,7 @@ public class ViewHolderDelegateManager<T, VH extends RecyclerView.ViewHolder> {
      * Helper method for recovering type argument from wildcard.
      * {@see http://www.angelikalanger.com/GenericsFAQ/FAQSections/ProgrammingIdioms.html#FAQ208}
      */
-    private static <T, VH extends RecyclerView.ViewHolder> void _helper(
+    private static <T extends Item, VH extends RecyclerView.ViewHolder> void _helper(
             ViewHolderDelegate<T, VH> reference, Object arg, T item) {
         reference.onBindViewHolder(reference.getViewHolderType().cast(arg), item);
     }

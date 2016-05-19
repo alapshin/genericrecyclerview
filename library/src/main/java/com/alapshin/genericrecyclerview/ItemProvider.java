@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @param <T> item type
  */
-public interface ItemProvider<T> {
+public interface ItemProvider<T extends Item> {
     /**
      * Get number of items in provider
      * @return number of items in provider
