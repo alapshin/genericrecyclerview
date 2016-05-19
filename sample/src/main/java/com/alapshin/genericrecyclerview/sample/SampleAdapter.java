@@ -94,8 +94,8 @@ public class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.SampleHold
         }
 
         @Override
-        public void bindItemToView(final SampleItem item) {
-            super.bindItemToView(item);
+        public void onBindViewHolder(final SampleItem item) {
+            super.onBindViewHolder(item);
             getItemView().setText(item.text());
             getItemView().setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -120,7 +120,7 @@ public class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.SampleHold
 
         @Override
         public void onBindViewHolder(@NonNull SampleHolderRed holder, SampleItem item) {
-            holder.bindItemToView(item);
+            holder.onBindViewHolder(item);
         }
 
         @NonNull
@@ -151,7 +151,7 @@ public class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.SampleHold
 
         @Override
         public void onBindViewHolder(@NonNull SampleHolderBlue holder, SampleItem item) {
-            holder.bindItemToView(item);
+            holder.onBindViewHolder(item);
         }
 
         @NonNull

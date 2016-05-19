@@ -41,7 +41,7 @@ public class DefaultViewHolder<T extends RecyclerItem, V extends View>
      * {@inheritDoc}
      */
     @CallSuper
-    public void bindItemToView(T item) {
+    public void onBindViewHolder(T item) {
         this.item = item;
     };
 }

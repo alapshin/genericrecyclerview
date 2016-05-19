@@ -25,5 +25,5 @@ public interface BindableViewHolder<T, V extends View> {
      * Binds item to view
      * @param item item
      */
-    void bindItemToView(T item);
+    void onBindViewHolder(T item);
 }
