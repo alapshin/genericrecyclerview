@@ -40,7 +40,7 @@ public class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.SampleHold
 
     @Override
     public SampleHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return (SampleHolder) delegateManager.onCreateViewHolder(parent, viewType);
+        return delegateManager.onCreateViewHolder(parent, viewType);
     }
 
     @Override
