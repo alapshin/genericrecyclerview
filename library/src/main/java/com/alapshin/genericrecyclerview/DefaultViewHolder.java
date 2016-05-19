@@ -12,7 +12,7 @@ import android.view.View;
  *
  * @author Andrei Lapshin
  */
-public class DefaultViewHolder<T extends RecyclerItem, V extends View>
+public class DefaultViewHolder<T extends Item, V extends View>
         extends RecyclerView.ViewHolder
         implements BindableViewHolder<T, V> {
     protected T item;

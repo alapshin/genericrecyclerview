@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DefaultItemProvider<T extends RecyclerItem> implements ItemProvider<T> {
+public class DefaultItemProvider<T extends Item> implements ItemProvider<T> {
     private List<T> items = new ArrayList<>();
     private RecyclerView.Adapter adapter;
 
