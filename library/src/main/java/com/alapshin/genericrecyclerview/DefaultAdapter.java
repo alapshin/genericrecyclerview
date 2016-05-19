@@ -5,9 +5,9 @@ import android.view.ViewGroup;
 
 public class DefaultAdapter<T extends Item, VH extends RecyclerView.ViewHolder>
         extends RecyclerView.Adapter<VH> {
-    private ItemProvider<T> itemProvider;
-    private SelectionManager selectionManager;
-    private ViewHolderDelegateManager<T, VH> delegateManager;
+    protected ItemProvider<T> itemProvider;
+    protected SelectionManager selectionManager;
+    protected ViewHolderDelegateManager<T, VH> delegateManager;
 
     @Override
     public int getItemCount() {
@@ -59,12 +59,24 @@ public class DefaultAdapter<T extends Item, VH extends RecyclerView.ViewHolder>
         return delegateManager.onCreateViewHolder(parent, viewType);
     }
 
+    public ItemProvider<T> getItemProvider() {
+        return itemProvider;
+    }
+
     public void setItemProvider(ItemProvider<T> itemProvider) {
         this.itemProvider = itemProvider;
     }
 
+    public SelectionManager getSelectionManager() {
+        return selectionManager;
+    }
+
     public void setSelectionManager(SelectionManager selectionManager) {
         this.selectionManager = selectionManager;
+    }
+
+    public ViewHolderDelegateManager<T, VH> getViewHolderDelegateManager() {
+        return delegateManager;
     }
 
     public void setViewHolderDelegateManager(ViewHolderDelegateManager<T, VH> delegateManager) {
