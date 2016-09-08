@@ -40,7 +40,7 @@ public class DefaultItemProvider<T extends Item> implements ItemProvider<T> {
     public void addItems(List<T> items) {
         int size = getItemCount();
         int sizeToInsert = items.size();
-        items.addAll(items);
+        this.items.addAll(items);
         if (adapter != null) {
             adapter.notifyItemRangeInserted(size, sizeToInsert);
         }
