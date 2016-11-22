@@ -30,10 +30,24 @@ public interface ItemProvider<T extends Item> {
     void addItem(T item);
 
     /**
+     * Add item to the provider at specified position
+     * @param item item
+     * @param position position
+     */
+    void addItem(int position, T item);
+
+    /**
      * Add items to provider
      * @param items new items
      */
     void addItems(List<T> items);
+
+    /**
+     * Add items to the provider at specified position
+     * @param items items to add
+     * @param position position
+     */
+    void addItems(int position, List<T> items);
 
     /**
      * Get item at position

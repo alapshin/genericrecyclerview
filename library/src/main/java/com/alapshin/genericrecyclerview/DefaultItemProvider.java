@@ -33,16 +33,31 @@ public class DefaultItemProvider<T extends Item> implements ItemProvider<T> {
         }
     }
 
+    @Override
+    public void addItem(int position, T item) {
+        items.add(position, item);
+        if (adapter != null) {
+            adapter.notifyItemInserted(position);
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void addItems(List<T> items) {
         int size = getItemCount();
-        int sizeToInsert = items.size();
         this.items.addAll(items);
         if (adapter != null) {
-            adapter.notifyItemRangeInserted(size, sizeToInsert);
+            adapter.notifyItemRangeInserted(size, items.size());
+        }
+    }
+
+    @Override
+    public void addItems(int position, List<T> items) {
+        this.items.addAll(position, items);
+        if (adapter != null) {
+            adapter.notifyItemRangeInserted(position, items.size());
         }
     }
 
