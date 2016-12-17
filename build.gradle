@@ -6,8 +6,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.12.0'
+        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
     }
 }
@@ -21,10 +21,10 @@ allprojects {
 ext {
     versions = [
             'minSdk': 15,
-            'targetSdk': 23,
-            'compileSdk': 24,
-            'buildTools': '24.0.2',
-            'support': '24.2.0'
+            'targetSdk': 25,
+            'compileSdk': 25,
+            'buildTools': '25.0.2',
+            'support': '25.1.0'
     ]
 
     libraries = [
