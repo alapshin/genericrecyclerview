@@ -17,19 +17,20 @@ import android.view.ViewGroup;
  * <p>
  * Next you have to add this ViewHolderDelegateManager to the {@link RecyclerView.Adapter} by
  * calling corresponding methods:
+ * </p>
  * <ul>
- * <li> {@link #getItemViewType(T)}: Must be called from {@link
- * RecyclerView.Adapter#getItemViewType(int)}</li>
- * <li> {@link #onCreateViewHolder(ViewGroup, int)}: Must be called from {@link
- * RecyclerView.Adapter#onCreateViewHolder(ViewGroup, int)}</li>
- * <li> {@link #onBindViewHolder(android.support.v7.widget.RecyclerView.ViewHolder, T)}: Must be
- * called from {@link RecyclerView.Adapter#onBindViewHolder(RecyclerView.ViewHolder, int)}</li>
+ * <li> {@link ViewHolderDelegateManager#getItemViewType(Item)}:
+ * Must be called from {@link RecyclerView.Adapter#getItemViewType(int)}</li>
+ * <li> {@link ViewHolderDelegateManager#onCreateViewHolder(ViewGroup, int)}:
+ * Must be called from {@link RecyclerView.Adapter#onCreateViewHolder(ViewGroup, int)}</li>
+ * <li> {@link ViewHolderDelegateManager#onBindViewHolder(RecyclerView.ViewHolder, Item)}:
+ * Must be called from {@link RecyclerView.Adapter#onBindViewHolder(RecyclerView.ViewHolder, int)}</li>
  * </ul>
- *
+ * <p>
  * You can also set a fallback {@link ViewHolderDelegate} by using {@link
- * #setFallbackDelegate(ViewHolderDelegate)} that will be used if no {@link ViewHolderDelegate} is
- * responsible to handle a certain view type. If no fallback is specified, an Exception will be
- * thrown if no {@link ViewHolderDelegate} is responsible to handle a certain view type
+ * ViewHolderDelegateManager#setFallbackDelegate(ViewHolderDelegate)} that will be used if no
+ * {@link ViewHolderDelegate} is responsible to handle a certain view type. If no fallback is specified, an Exception
+ * will be thrown if no {@link ViewHolderDelegate} is responsible to handle a certain view type
  * </p>
  *
  * @param <T> item type
@@ -244,6 +245,7 @@ public class ViewHolderDelegateManager<T extends Item, VH extends RecyclerView.V
      * other ViewHolderDelegate has handled a certain view type. <code>null</code> you can set this to
      * null if
      * you want to remove a previously set fallback ViewHolderDelegate
+     * @return self
      */
     public ViewHolderDelegateManager<T, VH> setFallbackDelegate(
             @Nullable ViewHolderDelegate<T, ? extends VH> fallbackDelegate) {
@@ -252,7 +254,7 @@ public class ViewHolderDelegateManager<T extends Item, VH extends RecyclerView.V
     }
 
     /**
-     * Helper method to call * {@link ViewHolderDelegate#onBindViewHolder(RecyclerView.ViewHolder, Item)}
+     * Helper method to call {@link ViewHolderDelegate#onBindViewHolder(RecyclerView.ViewHolder, Item)}
      * with view holder casted to right type
      *
      * {@see http://www.angelikalanger.com/GenericsFAQ/FAQSections/ProgrammingIdioms.html#FAQ208}

@@ -57,7 +57,7 @@ public interface ItemProvider<T extends Item> {
     T getItem(int position);
 
     /**
-     * Returns provider data items as {@link java.util.List<T>}
+     * Returns provider data items as {@link java.util.List}
      * @return items
      */
     List<T> getItems();
@@ -71,7 +71,7 @@ public interface ItemProvider<T extends Item> {
 
     /**
      * Set provider items
-     * @param items {@link java.util.List<T>} of items
+     * @param items {@link java.util.List} of items
      */
     void setItems(List<T> items);
 
