@@ -1,9 +1,21 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.novoda.bintray-release'
 
-group = 'com.github.alapshin'
-archivesBaseName = 'genericrecyclerview'
-version = '0.3.3'
+// For publishing to local maven repo
+group = GROUP_ID
+version = PUBLISH_VERSION
+
+// For publishing to Bintray
+publish {
+    autoPublish = true
+    userOrg = 'alapshin'
+    groupId = GROUP_ID
+    artifactId = 'genericrecyclerview'
+    publishVersion = PUBLISH_VERSION
+    desc = 'Recyclerview helper library'
+    website = 'https://github.com/alapshin/genericrecyclerview'
+}
+
 
 android {
     compileSdkVersion versions.compileSdk
