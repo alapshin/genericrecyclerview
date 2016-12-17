@@ -14,7 +14,7 @@ import com.alapshin.genericrecyclerview.ViewHolderDelegateManager;
 import com.alapshin.genericrecyclerview.SelectionManager;
 
 public class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.SampleHolder> {
-    public interface OnItemSelectedListener<T> {
+    interface OnItemSelectedListener<T> {
         void onItemSelected(int position, T item);
     }
 
@@ -81,7 +81,7 @@ public class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.SampleHold
     static class SampleHolder extends DefaultViewHolder<SampleItem, CheckBox> {
         OnItemSelectedListener<SampleItem> selectedListener;
 
-        public SampleHolder(CheckBox itemView) {
+        SampleHolder(CheckBox itemView) {
             super(itemView);
         }
 
@@ -107,7 +107,7 @@ public class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.SampleHold
     }
 
     static class SampleHolderRed extends SampleHolder {
-        public SampleHolderRed(CheckBox itemView) {
+        SampleHolderRed(CheckBox itemView) {
             super(itemView);
         }
     }
@@ -138,7 +138,7 @@ public class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.SampleHold
     }
 
     static class SampleHolderBlue extends SampleHolder {
-        public SampleHolderBlue(CheckBox itemView) {
+        SampleHolderBlue(CheckBox itemView) {
             super(itemView);
         }
     }

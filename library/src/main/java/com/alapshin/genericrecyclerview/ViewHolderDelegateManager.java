@@ -89,7 +89,8 @@ public class ViewHolderDelegateManager<T extends Item, VH extends RecyclerView.V
      * @see #addDelegate(ViewHolderDelegate)
      * @see #addDelegate(ViewHolderDelegate, int, boolean)
      */
-    public ViewHolderDelegateManager<T, VH> addDelegate(@NonNull ViewHolderDelegate<T, ? extends VH> delegate, int viewType) {
+    public ViewHolderDelegateManager<T, VH> addDelegate(@NonNull ViewHolderDelegate<T, ? extends VH> delegate,
+                                                        int viewType) {
         return addDelegate(delegate, viewType, false);
     }
 
@@ -102,7 +103,8 @@ public class ViewHolderDelegateManager<T extends Item, VH extends RecyclerView.V
         if (viewType == FALLBACK_DELEGATE_VIEW_TYPE) {
             throw new IllegalArgumentException("The view type = "
                     + FALLBACK_DELEGATE_VIEW_TYPE
-                    + " is reserved for fallback adapter delegate (see setFallbackDelegate() ). Please use another view type.");
+                    + " is reserved for fallback adapter delegate (see setFallbackDelegate() )."
+                    + " Please use another view type.");
         }
 
         if (!allowReplacingDelegate && delegates.get(viewType) != null) {
