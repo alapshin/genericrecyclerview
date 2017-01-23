@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 
 /**
  * This delegate provides methods to create and bind {@link RecyclerView.ViewHolder}
- * from {@link RecyclerView.Adapter}. To call this methods you should use {@link ViewHolderDelegateManager}.
+ * from {@link RecyclerView.Adapter}. To call his methods you should use {@link ViewHolderDelegateManager}.
  *
  * @param <T> item type
  * @author Andrei Lapshin
