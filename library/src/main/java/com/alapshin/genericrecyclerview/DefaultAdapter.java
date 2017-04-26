@@ -1,5 +1,6 @@
 package com.alapshin.genericrecyclerview;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
@@ -52,7 +53,7 @@ public class DefaultAdapter<T extends Item, VH extends RecyclerView.ViewHolder>
     }
 
     @Override
-    public VH onCreateViewHolder(ViewGroup parent, int viewType) {
+    public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (delegateManager == null) {
             throw new IllegalStateException("No ViewHolderDelegate manager added to adapter");
         }

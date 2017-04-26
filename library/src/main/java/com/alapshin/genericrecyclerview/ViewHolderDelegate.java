@@ -27,7 +27,7 @@ public interface ViewHolderDelegate<T extends Item, VH extends RecyclerView.View
      * @return The new instantiated {@link RecyclerView.ViewHolder}
      */
     @NonNull
-    VH onCreateViewHolder(ViewGroup parent);
+    VH onCreateViewHolder(@NonNull ViewGroup parent);
 
     /**
      * Called to bind the {@link RecyclerView.ViewHolder} to the item
@@ -35,7 +35,7 @@ public interface ViewHolderDelegate<T extends Item, VH extends RecyclerView.View
      * @param holder The holder to bind
      * @param item The item  to bind
      */
-    void onBindViewHolder(@NonNull VH holder, T item);
+    void onBindViewHolder(@NonNull VH holder, @NonNull T item);
 
     /**
      * Called to get real {@link RecyclerView.ViewHolder} type from {@link ViewHolderDelegateManager}

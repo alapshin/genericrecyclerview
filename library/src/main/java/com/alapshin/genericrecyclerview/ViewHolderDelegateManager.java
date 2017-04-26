@@ -166,7 +166,6 @@ public class ViewHolderDelegateManager<T extends Item, VH extends RecyclerView.V
      * @throws NullPointerException if items is null
      */
     public int getItemViewType(@NonNull T item) {
-
         int delegatesCount = delegates.size();
         for (int i = 0; i < delegatesCount; i++) {
             ViewHolderDelegate<T, ? extends VH> delegate = delegates.valueAt(i);
@@ -193,7 +192,7 @@ public class ViewHolderDelegateManager<T extends Item, VH extends RecyclerView.V
      * viewType
      */
     @NonNull
-    public VH onCreateViewHolder(ViewGroup parent, int viewType) {
+    public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ViewHolderDelegate<T, ? extends VH> delegate = delegates.get(viewType);
         if (delegate == null) {
             if (fallbackDelegate == null) {
