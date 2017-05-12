@@ -45,7 +45,7 @@ public class SampleActivity extends AppCompatActivity {
         recyclerAdapter.setItemProvider(itemProvider);
         List<SampleItem> items = new ArrayList<>();
         for (int i = 0; i < 20; ++i) {
-            items.add(i, new SampleItem(i, i % 2, "Item " + (i + 1)));
+            items.add(i, new SampleItem(i, 1 + i % 2, "Item " + (i + 1)));
         }
         itemProvider.setItems(items);
 

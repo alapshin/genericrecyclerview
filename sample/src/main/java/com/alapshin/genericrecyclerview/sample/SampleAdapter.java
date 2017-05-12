@@ -35,7 +35,7 @@ public class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.SampleHold
 
     @Override
     public int getItemViewType(int position) {
-        return itemProvider.getItem(position).type();
+        return delegateManager.getItemViewType(itemProvider.getItem(position));
     }
 
     @Override
@@ -146,7 +146,7 @@ public class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.SampleHold
     static class SampleDelegateBlue implements ViewHolderDelegate<SampleItem, SampleHolderBlue> {
         @Override
         public boolean isForViewType(@NonNull SampleItem item) {
-            return item.type() == 1;
+            return item.type() == 2;
         }
 
         @Override
