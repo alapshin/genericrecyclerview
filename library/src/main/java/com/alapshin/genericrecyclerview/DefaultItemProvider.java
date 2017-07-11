@@ -1,5 +1,6 @@
 package com.alapshin.genericrecyclerview;
 
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -93,10 +94,10 @@ public class DefaultItemProvider<T extends Item> implements ItemProvider<T> {
      */
     @Override
     public void setItems(List<T> items) {
-        this.items = items;
         if (adapter != null) {
-            adapter.notifyDataSetChanged();
+            DiffUtil.calculateDiff(new DiffUtilCallback(this.items, items)).dispatchUpdatesTo(adapter);
         }
+        this.items = items;
     }
 
     /**
@@ -135,5 +136,35 @@ public class DefaultItemProvider<T extends Item> implements ItemProvider<T> {
 
     public void setAdapter(RecyclerView.Adapter adapter) {
         this.adapter = adapter;
+    }
+
+    class DiffUtilCallback extends DiffUtil.Callback {
+        private final List<T> oldList;
+        private final List<T> newList;
+
+        DiffUtilCallback(List<T> oldList, List<T> newList) {
+            this.oldList = oldList;
+            this.newList = newList;
+        }
+
+        @Override
+        public int getOldListSize() {
+            return oldList.size();
+        }
+
+        @Override
+        public int getNewListSize() {
+            return newList.size();
+        }
+
+        @Override
+        public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+            return oldList.get(oldItemPosition).id() == newList.get(newItemPosition).id();
+        }
+
+        @Override
+        public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+            return oldList.get(oldItemPosition).equals(newList.get(newItemPosition));
+        }
     }
 }
