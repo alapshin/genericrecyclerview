@@ -6,9 +6,9 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-beta4'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
-        classpath 'com.novoda:bintray-release:0.5.0'
+        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.17.0'
+        classpath 'com.novoda:bintray-release:0.8.0'
     }
 }
 
@@ -26,10 +26,10 @@ subprojects {
 ext {
     versions = [
             'minSdk': 15,
-            'targetSdk': 25,
-            'compileSdk': 26,
-            'buildTools': '26.0.1',
-            'support': '26.0.2'
+            'targetSdk': 27,
+            'compileSdk': 27,
+            'buildTools': '27.0.3',
+            'support': '27.0.2'
     ]
 
     libraries = [
