@@ -104,17 +104,6 @@ public class DefaultItemProvider<T extends Item> implements ItemProvider<T> {
      * {@inheritDoc}
      */
     @Override
-    public void moveItem(int fromPosition, int toPosition) {
-        items.add(toPosition, items.remove(fromPosition));
-        if (adapter != null) {
-            adapter.notifyItemMoved(fromPosition, toPosition);
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void removeItem(int position) {
         items.remove(position);
         if (adapter != null) {

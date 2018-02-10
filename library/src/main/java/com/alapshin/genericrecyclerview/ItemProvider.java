@@ -76,13 +76,6 @@ public interface ItemProvider<T extends Item> {
     void setItems(List<T> items);
 
     /**
-     * Move item fromPosition one position toPosition another
-     * @param fromPosition current item position
-     * @param toPosition new item position
-     */
-    void moveItem(int fromPosition, int toPosition);
-
-    /**
      * Remove item at position from provider
      * @param position item position in the provider
      */
