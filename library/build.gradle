@@ -37,6 +37,6 @@ android {
 }
 
 dependencies {
-    compile libraries.supportannotations
-    compile libraries.supportrecyclerview
+    api libraries.supportrecyclerview
+    compileOnly libraries.supportannotations
 }
